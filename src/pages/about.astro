@@ -1,0 +1,39 @@
+---
+import Base from "../layouts/Base.astro";
+import { getEntry, getCollection, render } from "astro:content";
+
+const about = await getEntry("pages", "about");
+const { Content } = await render(about);
+
+const team = await Promise.all(
+  (await getCollection("team"))
+    .sort((a, b) => a.data.order - b.data.order)
+    .map(async (m) => ({ data: m.data, Bio: (await render(m)).Content })),
+);
+---
+
+<Base title="About — Fernway Coffee" description={about.data.subheading}>
+  <section class="hero">
+    <h1>{about.data.heading}</h1>
+    <p class="sub">{about.data.subheading}</p>
+  </section>
+  <section class="article">
+    <div class="article-body"><Content /></div>
+  </section>
+
+  <section class="section">
+    <h2>The team</h2>
+    <div class="team-grid">
+      {
+        team.map((m) => (
+          <div class="team-card">
+            <img class="avatar" src={m.data.avatar.src} alt={m.data.name} width="80" height="80" />
+            <p class="team-name">{m.data.name}</p>
+            <p class="team-role">{m.data.role}</p>
+            <div class="team-bio"><m.Bio /></div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</Base>

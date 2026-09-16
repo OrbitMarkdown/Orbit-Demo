@@ -1,0 +1,41 @@
+---
+import Base from "../layouts/Base.astro";
+import { getEntry, getCollection, render } from "astro:content";
+
+const home = await getEntry("pages", "home");
+const { Content } = await render(home);
+
+const posts = (await getCollection("posts")).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+const featured = [...posts]
+  .sort((a, b) => Number(b.data.featured) - Number(a.data.featured))
+  .slice(0, 3);
+---
+
+<Base title="Fernway Coffee" description={home.data.subheading}>
+  <section class="hero">
+    <h1>{home.data.heading}</h1>
+    <p class="sub">{home.data.subheading}</p>
+    {home.data.ctaLabel && <a class="btn" href={home.data.ctaHref}>{home.data.ctaLabel}</a>}
+    <div class="hero-body"><Content /></div>
+  </section>
+
+  <section class="section">
+    <h2>From the journal</h2>
+    <div class="grid">
+      {
+        featured.map((p) => (
+          <a class="card" href={`/journal/${p.id}`}>
+            {p.data.heroImage && <img src={p.data.heroImage.src} alt="" />}
+            <div class="card-body">
+              <p class="card-kicker">{p.data.category}</p>
+              <h3>{p.data.title}</h3>
+              <p>{p.data.excerpt}</p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</Base>

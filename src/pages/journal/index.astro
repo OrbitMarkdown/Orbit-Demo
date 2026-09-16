@@ -1,0 +1,31 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("posts")).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+---
+
+<Base title="Journal — Fernway Coffee" description="Notes on beans, brewing and the café.">
+  <section class="hero">
+    <h1>The journal</h1>
+    <p class="sub">Notes on what we're roasting, how we're brewing it, and what's new at the café.</p>
+  </section>
+  <section class="section">
+    <div class="grid">
+      {
+        posts.map((p) => (
+          <a class="card" href={`/journal/${p.id}`}>
+            {p.data.heroImage && <img src={p.data.heroImage.src} alt="" />}
+            <div class="card-body">
+              <p class="card-kicker">{p.data.category}</p>
+              <h3>{p.data.title}</h3>
+              <p>{p.data.excerpt}</p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</Base>

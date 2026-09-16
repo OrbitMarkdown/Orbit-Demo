@@ -1,0 +1,59 @@
+---
+import "../styles/global.css";
+const { title, description } = Astro.props;
+
+// Where the demo ribbon + footer credit point. Set ORBIT_URL to the deployed
+// Orbit MD marketing site once it's live.
+const ORBIT_URL = "https://orbitmd.com";
+const AUTHOR_URL = "https://johnspurgin.com";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+  </head>
+  <body>
+    <div class="demo-ribbon">
+      <a
+        class="demo-ribbon-bar"
+        href={ORBIT_URL}
+        target="_blank"
+        rel="noopener"
+        title="This is a demo site for Orbit MD — click to learn more"
+      >
+        <span class="ribbon-1">Demo site</span>
+        <span class="ribbon-2">Orbit MD ↗</span>
+      </a>
+    </div>
+
+    <header class="site-header">
+      <a class="brand" href="/">
+        <img src="/favicon.svg" alt="" />
+        <span class="brand-name">Fernway Coffee</span>
+      </a>
+      <nav>
+        <a href="/menu">Menu</a>
+        <a href="/journal">Journal</a>
+        <a href="/about">About</a>
+      </nav>
+    </header>
+
+    <main><slot /></main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span>Fernway Coffee · 14 Larch Lane, Fernway</span>
+        <span>Mon–Fri 7am–5pm · Sat 8am–4pm · Sun 9am–3pm</span>
+        <span class="footer-credit">
+          A demo built with <a href={ORBIT_URL} target="_blank" rel="noopener">Orbit MD</a>
+          · by <a href={AUTHOR_URL} target="_blank" rel="noopener">John Spurgin</a>
+        </span>
+      </div>
+    </footer>
+  </body>
+</html>

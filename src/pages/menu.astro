@@ -1,0 +1,35 @@
+---
+import Base from "../layouts/Base.astro";
+import { getCollection } from "astro:content";
+
+const drinks = (await getCollection("drinks")).sort((a, b) =>
+  a.data.name.localeCompare(b.data.name),
+);
+const gbp = (n: number) => "£" + n.toFixed(2);
+---
+
+<Base title="Menu — Fernway Coffee" description="The short, ever-changing Fernway menu.">
+  <section class="hero">
+    <h1>The menu</h1>
+    <p class="sub">Short on purpose, changed often. Prices are for a regular size unless noted.</p>
+  </section>
+  <section class="section">
+    <div class="menu-list">
+      {
+        drinks.map((d) => (
+          <div class={"menu-item" + (d.data.available ? "" : " is-out")}>
+            <div>
+              <span class="menu-cat">{d.data.category} · {d.data.size}</span>
+              <div class="menu-name">
+                {d.data.name}
+                {!d.data.available && <span class="menu-out-tag"> · sold out</span>}
+              </div>
+              <p class="menu-desc">{d.data.description}</p>
+            </div>
+            <div class="menu-price">{gbp(d.data.price)}</div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</Base>

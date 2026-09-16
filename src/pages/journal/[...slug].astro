@@ -1,0 +1,32 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getCollection, render } from "astro:content";
+import Callout from "../../components/Callout.astro";
+import Figure from "../../components/Figure.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  return posts.map((p) => ({ params: { slug: p.id }, props: { post: p } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const d = post.data;
+const dateStr = d.date.toLocaleDateString("en-GB", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+---
+
+<Base title={`${d.title} — Fernway Coffee`} description={d.excerpt}>
+  <article class="article">
+    {d.heroImage && <img class="article-hero" src={d.heroImage.src} alt="" />}
+    <h1>{d.title}</h1>
+    <p class="article-meta">{d.category} · {dateStr} · {d.author}</p>
+    <div class="article-body"><Content components={{ Callout, Figure }} /></div>
+    {d.tags.length > 0 && (
+      <div class="tag-row">{d.tags.map((t) => <span class="tag">{t}</span>)}</div>
+    )}
+  </article>
+</Base>

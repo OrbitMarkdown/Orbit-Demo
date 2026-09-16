@@ -1,0 +1,36 @@
+assetsDir: src/assets
+
+site:
+  title: Fernway Coffee
+  favicon: public/favicon.svg
+  defaultRole: editor
+
+branches:
+  default: preview
+  allowed: [preview]
+
+snippets:
+  compileOnSave: false
+
+collections:
+  posts:
+    canAdd: true
+  drinks:
+    canAdd: true
+  pages:
+    canAdd: false
+
+components:
+  - name: Callout
+    description: A highlighted note box
+    children: true
+    props:
+      - { name: kind, type: enum, options: [note, tip, warning], default: note }
+      - { name: title, type: string }
+  - name: Figure
+    description: A captioned image
+    children: false
+    props:
+      - { name: src, type: string }
+      - { name: alt, type: string }
+      - { name: caption, type: string }
