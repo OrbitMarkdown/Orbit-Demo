@@ -38,7 +38,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // The Editor/Developer UX role has no SetRole binding — it lives in state.json and
 // is read on boot. So set it there and reload to capture each surface.
-const STATE = path.join(os.homedir(), "Library/Application Support/cms/state.json");
+const STATE = path.join(os.homedir(), "Library/Application Support/OrbitMD/state.json");
 const readRole = () => { try { return JSON.parse(fs.readFileSync(STATE, "utf8")).role ?? ""; } catch { return ""; } };
 const setRole = (role) => { const s = JSON.parse(fs.readFileSync(STATE, "utf8")); s.role = role; fs.writeFileSync(STATE, JSON.stringify(s, null, 2)); };
 const originalRole = readRole();
