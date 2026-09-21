@@ -19,9 +19,12 @@
 //     explicitly closed by clicking their backdrop, so nothing leaks between
 //     shots. The two shots that SHOULD show an overlay (snippet picker, component
 //     inserter) open it, capture, then close it.
+//   - mode-developer / mode-editor are captured by toggling the UX role in
+//     state.json (macOS path) and reloading; the role is restored afterwards.
 
 import { spawn } from "node:child_process";
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -32,6 +35,13 @@ const OUT = process.env.OUT || path.resolve(REPO, "../orbit-marketing/public/scr
 const CHROME = process.env.CHROME || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const PORT = 9333;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// The Editor/Developer UX role has no SetRole binding — it lives in state.json and
+// is read on boot. So set it there and reload to capture each surface.
+const STATE = path.join(os.homedir(), "Library/Application Support/cms/state.json");
+const readRole = () => { try { return JSON.parse(fs.readFileSync(STATE, "utf8")).role ?? ""; } catch { return ""; } };
+const setRole = (role) => { const s = JSON.parse(fs.readFileSync(STATE, "utf8")); s.role = role; fs.writeFileSync(STATE, JSON.stringify(s, null, 2)); };
+const originalRole = readRole();
 
 // bail early if the app bridge isn't up
 try {
@@ -145,6 +155,20 @@ await shot("images");
 await evalJS(`window.__clickName("Site settings")`); await sleep(700);
 await evalJS(`window.__clickText("Components", true)`); await sleep(700);
 await shot("settings-components");
+
+// Editor vs Developer surfaces — set the role in state.json, reload, capture.
+if (fs.existsSync(STATE)) {
+  setRole("dev");
+  await send("Page.reload"); await sleep(5000);
+  await shot("mode-developer");
+  setRole("editor");
+  await send("Page.reload"); await sleep(5000);
+  await shot("mode-editor");
+  setRole(originalRole); // leave the role as we found it
+  console.log(`  (restored role to ${originalRole || "default"})`);
+} else {
+  console.warn("  ! state.json not found — skipped mode-developer / mode-editor");
+}
 
 console.log(`\nDone. ${OUT}`);
 ws.close();
