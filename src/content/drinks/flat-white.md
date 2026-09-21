@@ -1,7 +1,7 @@
 ---
 name: Flat White
 category: Espresso
-price: 3.4
+price: 3.6
 size: Regular
 available: true
 description: Two ristretto shots and steamed milk, poured tight. Our most-ordered drink for a reason.
