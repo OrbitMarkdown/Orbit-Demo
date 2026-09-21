@@ -1,6 +1,6 @@
 ---
 title: We're open on Sundays now
-excerpt: By popular (and slightly relentless) demand, the café is now open seven days a week.
+excerpt: By popular (and slightly relentless) demand, the café is now open seven days a week — including slower Sunday mornings.
 date: 2026-09-01
 author: The Fernway team
 category: Journal
