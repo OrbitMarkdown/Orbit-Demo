@@ -3,6 +3,7 @@ import Base from "../layouts/Base.astro";
 import { getEntry, getCollection, render } from "astro:content";
 
 const about = await getEntry("pages", "about");
+if (!about) throw new Error("Missing pages/about content entry");
 const { Content } = await render(about);
 
 const team = await Promise.all(

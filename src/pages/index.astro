@@ -3,6 +3,7 @@ import Base from "../layouts/Base.astro";
 import { getEntry, getCollection, render } from "astro:content";
 
 const home = await getEntry("pages", "home");
+if (!home) throw new Error("Missing pages/home content entry");
 const { Content } = await render(home);
 
 const posts = (await getCollection("posts")).sort(
