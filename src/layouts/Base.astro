@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import nav from "../data/nav.json"; // editable in Orbit (data file)
 const { title, description } = Astro.props;
 
 // Where the demo ribbon + footer credit point. ORBIT_URL is the marketing site
@@ -38,9 +39,9 @@ const AUTHOR_URL = "https://johnspurgin.com";
         <span class="brand-name">Fernway Coffee</span>
       </a>
       <nav>
-        <a href="/menu">Menu</a>
-        <a href="/journal">Journal</a>
-        <a href="/about">About</a>
+        {nav.map((item) => (
+          <a href={item.href}>{item.label}</a>
+        ))}
       </nav>
     </header>
 

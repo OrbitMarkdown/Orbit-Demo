@@ -12,6 +12,10 @@ branches:
 snippets:
   compileOnSave: false
 
+data:
+  - path: src/data/nav.json
+    label: Main navigation
+
 collections:
   posts:
     canAdd: true
