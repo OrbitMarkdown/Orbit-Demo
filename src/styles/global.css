@@ -127,3 +127,6 @@ a:hover { text-decoration: underline; }
 .footer-credit a { color: var(--accent); font-weight: 600; }
 .site-footer { border-top: 1px solid var(--border); margin-top: 40px; }
 .footer-inner { max-width: 960px; margin: 0 auto; padding: 28px 24px; font-family: system-ui, sans-serif; color: var(--muted); font-size: 14px; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+.footer-nav { flex-basis: 100%; display: flex; gap: 18px; margin-bottom: 6px; }
+.footer-nav a { color: var(--text); font-weight: 600; text-decoration: none; }
+.footer-nav a:hover { color: var(--accent); }

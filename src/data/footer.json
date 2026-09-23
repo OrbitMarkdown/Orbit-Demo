@@ -1,0 +1,5 @@
+[
+  { "label": "Menu", "href": "/menu" },
+  { "label": "Journal", "href": "/journal" },
+  { "label": "About", "href": "/about" }
+]
