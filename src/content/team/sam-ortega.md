@@ -1,7 +1,7 @@
 ---
 name: Sam Ortega
 role: Barista & brew guide
-avatar: ../../assets/avatar-sam.svg
+avatar: ../../assets/team/avatar-sam.svg
 order: 2
 ---
 

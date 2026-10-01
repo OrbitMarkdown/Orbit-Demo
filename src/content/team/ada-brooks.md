@@ -1,7 +1,7 @@
 ---
 name: Ada Brooks
 role: Founder & head roaster
-avatar: ../../assets/avatar-ada.svg
+avatar: ../../assets/team/avatar-ada.svg
 order: 1
 ---
 

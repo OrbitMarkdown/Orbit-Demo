@@ -1,7 +1,7 @@
 ---
 name: Priya Nair
 role: Baker
-avatar: ../../assets/avatar-priya.svg
+avatar: ../../assets/team/avatar-priya.svg
 order: 3
 ---
 

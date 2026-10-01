@@ -4,6 +4,9 @@ import { getCollection, render } from "astro:content";
 import Callout from "../../components/Callout.astro";
 import Figure from "../../components/Figure.astro";
 
+// A rest route ([...slug], not [slug]): a post's id keeps its folder
+// ("guides/dialling-in-espresso"), and only a rest parameter can hold the "/".
+// This is what makes Orbit's `newFolders: true` safe for this collection.
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
   return posts.map((p) => ({ params: { slug: p.id }, props: { post: p } }));

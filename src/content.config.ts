@@ -15,6 +15,11 @@ const pages = defineCollection({
 // Journal posts — a deliberately rich schema so the editor form shows every
 // control: text, long text, date, enums, an array, an image, a boolean, and a
 // nested (collapsible) group.
+//
+// Sub-folders: "**/" lets entries sit at any depth (posts/guides/…,
+// posts/archive/…); an entry's id keeps its folder ("guides/dialling-in-espresso"),
+// which the [...slug] route turns into /journal/guides/dialling-in-espresso.
+// "{md,mdx}" + @astrojs/mdx in package.json = editors choose Markdown or MDX.
 const posts = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/posts" }),
   schema: ({ image }) =>
@@ -62,4 +67,16 @@ const team = defineCollection({
     }),
 });
 
-export const collections = { pages, posts, drinks, team };
+// This week's specials — frontmatter only (no body). orbit.config.yaml marks it
+// `bodyless: true`, so Orbit shows just the form, no text editor.
+const specials = defineCollection({
+  loader: glob({ pattern: "*.md", base: "./src/content/specials" }),
+  schema: z.object({
+    name: z.string(),
+    day: z.enum(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]),
+    price: z.number(),
+    available: z.boolean().default(true),
+  }),
+});
+
+export const collections = { pages, posts, drinks, team, specials };

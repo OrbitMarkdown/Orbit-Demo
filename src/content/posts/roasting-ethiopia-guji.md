@@ -5,7 +5,7 @@ date: 2026-08-14
 author: Ada Brooks
 category: Beans
 tags: [ethiopia, light roast, single origin]
-heroImage: ../../assets/hero-beans.svg
+heroImage: ../../assets/heroes/hero-beans.svg
 featured: true
 seo:
   description: Tasting notes and a rough recipe for Fernway's Ethiopia Guji filter roast.
@@ -15,7 +15,7 @@ This one landed green a fortnight ago and it's been the most fun — and the mos
 fiddly — coffee on the bench all summer. Roasted light, it leans into peach,
 jasmine and a soft black-tea finish.
 
-![A bag of this month's Ethiopia Guji](../../assets/content-bag.svg)
+![A bag of this month's Ethiopia Guji](../../assets/posts/content-bag.svg)
 
 ## How we're brewing it
 
@@ -26,7 +26,7 @@ pour — don't rush the bloom.
 Grind matters more than anything here. Too fine and the delicate fruit turns
 sharp; too coarse and it goes flat and tea-like.
 
-![Grind size, from too fine to just right](../../assets/content-grind.svg)
+![Grind size, from too fine to just right](../../assets/posts/content-grind.svg)
 
 If you're taking a bag home, give it three or four days to settle before you
 judge it — fresh off the roaster it's a little shy. And if you'd rather we brewed

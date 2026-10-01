@@ -18,13 +18,24 @@ data:
   - path: src/data/footer.json
     label: Footer navigation
 
+# Per-collection rules (also editable in Orbit: Settings ▸ Collections — note that
+# saving there rewrites this file without these comments).
 collections:
   posts:
     canAdd: true
+    # Editors may start new sub-folders. Safe here because the journal route is
+    # src/pages/journal/[...slug].astro — a [slug] route would break the build.
+    newFolders: true
+    # …but never add pages to the archive.
+    noAddTo: ["archive/**"]
   drinks:
     canAdd: true
+  specials:
+    canAdd: true
+    bodyless: true   # frontmatter only — no text editor
   pages:
-    canAdd: false
+    canAdd: false    # home/about are fixed pages: editable, but no new ones
+    # readOnly: true # would lock them from editing entirely
 
 components:
   - name: Callout

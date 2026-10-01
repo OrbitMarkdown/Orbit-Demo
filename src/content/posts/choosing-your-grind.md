@@ -5,14 +5,14 @@ date: 2026-08-02
 author: Sam Ortega
 category: Brewing
 tags: [grind, basics, how-to]
-heroImage: ../../assets/hero-pour.svg
+heroImage: ../../assets/heroes/hero-pour.svg
 featured: false
 ---
 
 If one thing separates a flat cup from a bright one, it's grind size. Same beans,
 same water — grind them differently and you get a different drink.
 
-![From fine espresso grind to coarse press grind](../../assets/content-grind.svg)
+![From fine espresso grind to coarse press grind](../../assets/posts/content-grind.svg)
 
 The rule of thumb: **the faster the water passes through, the finer you grind.**
 

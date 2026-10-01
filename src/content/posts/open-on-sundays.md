@@ -5,7 +5,7 @@ date: 2026-09-01
 author: The Fernway team
 category: Journal
 tags: [news, opening hours]
-heroImage: ../../assets/hero-window.svg
+heroImage: ../../assets/heroes/hero-window.svg
 featured: false
 seo:
   title: Fernway Coffee — now open Sundays
@@ -15,7 +15,7 @@ seo:
 You asked, and we finally caved: Fernway is now open **Sundays, 9am–3pm**. Same
 short menu, same big windows, slightly slower pace.
 
-![The counter on a quiet Sunday morning](../../assets/content-brew.svg)
+![The counter on a quiet Sunday morning](../../assets/posts/content-brew.svg)
 
 Sunday is our roast-fresh day too, so if you want this week's beans at their
 liveliest, that's the morning to come by.
