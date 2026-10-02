@@ -41,7 +41,7 @@ Every Orbit feature this site uses, and the file(s) to read to copy it into your
 | **Sub-folders** | `posts` as a folder tree (`guides/`, `archive/`) | `**/*.{md,mdx}` glob in `src/content.config.ts`; `src/content/posts/guides/`, `…/archive/` |
 | **Folder-safe routes** | Pages in folders get folder URLs (`/journal/guides/dialling-in-espresso`) | the rest route `src/pages/journal/[...slug].astro`, and links built from `p.id` in `src/pages/journal/index.astro` |
 | **Editors creating folders** | A *new folder* field in the + box for `posts` | `newFolders: true` in `orbit.config.yaml` — only safe because of the rest route above |
-| **Per-folder add rules** | `archive` isn't offered for new posts | `noAddTo: ["archive/**"]` in `orbit.config.yaml` |
+| **Per-folder add rules** | `archive` isn't offered for new posts | `noAddTo: ["archive"]` in `orbit.config.yaml` (a folder includes everything inside it) |
 | **Markdown or MDX** | A *type* choice for new posts | `{md,mdx}` in the glob + `@astrojs/mdx` in `package.json` / `astro.config.mjs` |
 | **MDX components** | Insert ▸ Component, with a props form | `components:` in `orbit.config.yaml`; `src/components/Callout.astro`, `Figure.astro`; used in the `.mdx` posts |
 | **Snippets** | `[[opening-hours]]`, `[[address]]` from the Insert menu | `src/content/snippets/`; expanded at build by `remark-snippets.mjs` (`snippets.compileOnSave: false`) |

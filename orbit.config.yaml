@@ -6,6 +6,7 @@ branches:
     allowed:
         - preview
 collections:
+<<<<<<< HEAD
     drinks:
         canAdd: true
         newFolders: true
@@ -23,6 +24,25 @@ site:
     title: Fernway Coffee
     favicon: public/favicon.svg
     defaultRole: editor
+=======
+  posts:
+    canAdd: true
+    # Editors may start new sub-folders. Safe here because the journal route is
+    # src/pages/journal/[...slug].astro — a [slug] route would break the build.
+    newFolders: true
+    # …but never add pages to the archive (or any folder inside it). List more
+    # folders to block them too, e.g. ["archive", "drafts"].
+    noAddTo: ["archive"]
+  drinks:
+    canAdd: true
+  specials:
+    canAdd: true
+    bodyless: true   # frontmatter only — no text editor
+  pages:
+    canAdd: false    # home/about are fixed pages: editable, but no new ones
+    # readOnly: true # would lock them from editing entirely
+
+>>>>>>> 400d570 (working on config)
 components:
     - name: Callout
       description: A highlighted note box
