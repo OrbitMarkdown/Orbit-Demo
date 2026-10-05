@@ -1,30 +1,26 @@
-# Orbit MD site configuration — edit in the app (⚙) or by hand.
-
 assetsDir: src/assets
-branches:
-    default: preview
-    allowed:
-        - preview
-collections:
-<<<<<<< HEAD
-    drinks:
-        canAdd: true
-        newFolders: true
-    pages:
-        canAdd: false
-    posts:
-        canAdd: true
-        noAddTo:
-            - archive
-        newFolders: true
-    specials:
-        canAdd: true
-        bodyless: true
+
 site:
-    title: Fernway Coffee
-    favicon: public/favicon.svg
-    defaultRole: editor
-=======
+  title: Fernway Coffee
+  favicon: public/favicon.svg
+  defaultRole: editor
+
+branches:
+  default: preview
+  allowed: [preview]
+
+snippets:
+  compileOnSave: false
+
+data:
+  - path: src/data/nav.json
+    label: Main navigation
+  - path: src/data/footer.json
+    label: Footer navigation
+
+# Per-collection rules (also editable in Orbit: Settings ▸ Collections — note that
+# saving there rewrites this file without these comments).
+collections:
   posts:
     canAdd: true
     # Editors may start new sub-folders. Safe here because the journal route is
@@ -35,6 +31,9 @@ site:
     noAddTo: ["archive"]
   drinks:
     canAdd: true
+    # Drinks are listed on the menu page (src/pages/menu.astro), with no page of
+    # their own, so grouping them in sub-folders can't break any addresses.
+    newFolders: true
   specials:
     canAdd: true
     bodyless: true   # frontmatter only — no text editor
@@ -42,32 +41,17 @@ site:
     canAdd: false    # home/about are fixed pages: editable, but no new ones
     # readOnly: true # would lock them from editing entirely
 
->>>>>>> 400d570 (working on config)
 components:
-    - name: Callout
-      description: A highlighted note box
-      children: true
-      props:
-        - name: kind
-          type: enum
-          options:
-            - note
-            - tip
-            - warning
-          default: note
-        - name: title
-          type: string
-    - name: Figure
-      description: A captioned image
-      props:
-        - name: src
-          type: string
-        - name: alt
-          type: string
-        - name: caption
-          type: string
-data:
-    - path: src/data/nav.json
-      label: Main navigation
-    - path: src/data/footer.json
-      label: Footer navigation
+  - name: Callout
+    description: A highlighted note box
+    children: true
+    props:
+      - { name: kind, type: enum, options: [note, tip, warning], default: note }
+      - { name: title, type: string }
+  - name: Figure
+    description: A captioned image
+    children: false
+    props:
+      - { name: src, type: string }
+      - { name: alt, type: string }
+      - { name: caption, type: string }
