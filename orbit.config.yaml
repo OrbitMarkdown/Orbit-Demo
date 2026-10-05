@@ -6,8 +6,8 @@ site:
   defaultRole: editor
 
 branches:
-  default: preview
-  allowed: [preview]
+  default: main
+  allowed: [main]
 
 snippets:
   compileOnSave: false
