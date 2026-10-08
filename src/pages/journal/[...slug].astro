@@ -9,27 +9,35 @@ import Figure from "../../components/Figure.astro";
 // This is what makes Orbit's `newFolders: true` safe for this collection.
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
-  return posts.map((p) => ({ params: { slug: p.id }, props: { post: p } }));
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
 }
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const d = post.data;
-const dateStr = d.date.toLocaleDateString("en-GB", {
+const { title, excerpt, heroImage, category, date, author, tags } = post.data;
+const published = date.toLocaleDateString("en-GB", {
   day: "numeric",
   month: "long",
   year: "numeric",
 });
 ---
 
-<Base title={`${d.title} — Fernway Coffee`} description={d.excerpt}>
+<Base title={`${title} — Fernway Coffee`} description={excerpt}>
   <article class="article">
-    {d.heroImage && <img class="article-hero" src={d.heroImage.src} alt="" />}
-    <h1>{d.title}</h1>
-    <p class="article-meta">{d.category} · {dateStr} · {d.author}</p>
-    <div class="article-body"><Content components={{ Callout, Figure }} /></div>
-    {d.tags.length > 0 && (
-      <div class="tag-row">{d.tags.map((t) => <span class="tag">{t}</span>)}</div>
+    {heroImage && <img class="article-hero" src={heroImage.src} alt="" />}
+    <h1>{title}</h1>
+    <p class="article-meta">
+      {category} · {published} · {author}
+    </p>
+    <div class="article-body">
+      <Content components={{ Callout, Figure }} />
+    </div>
+    {tags.length > 0 && (
+      <div class="tag-row">
+        {tags.map((tag) => (
+          <span class="tag">{tag}</span>
+        ))}
+      </div>
     )}
   </article>
 </Base>

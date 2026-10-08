@@ -2,11 +2,16 @@
 import "../styles/global.css";
 import nav from "../data/nav.json"; // editable in Orbit (data file)
 import footerNav from "../data/footer.json"; // editable in Orbit (data file)
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
 const { title, description } = Astro.props;
 
-// Where the demo ribbon + footer credit point. ORBIT_URL is the marketing site
-// (this demo itself is hosted at demo.orbitmarkdown.com). Note: orbitmd.com is
-// an unrelated company — never use it.
+// Where the demo ribbon and footer credit point: Orbit's own site.
+// Not orbitmd.com — an unrelated company.
 const ORBIT_URL = "https://orbitmarkdown.com";
 const AUTHOR_URL = "https://johnspurgin.com";
 ---
@@ -46,20 +51,28 @@ const AUTHOR_URL = "https://johnspurgin.com";
       </nav>
     </header>
 
-    <main><slot /></main>
+    <main>
+      <slot />
+    </main>
 
     <footer class="site-footer">
       <div class="footer-inner">
         <nav class="footer-nav">
-          {footerNav.map((l) => (
-            <a href={l.href}>{l.label}</a>
+          {footerNav.map((link) => (
+            <a href={link.href}>{link.label}</a>
           ))}
         </nav>
         <span>Fernway Coffee · 14 Larch Lane, Fernway</span>
         <span>Mon–Fri 7am–6pm · Sat 8am–4pm · Sun 9am–3pm</span>
         <span class="footer-credit">
-          Content edited with <a href={ORBIT_URL} target="_blank" rel="noopener">Orbit MD</a>
-          · by <a href={AUTHOR_URL} target="_blank" rel="noopener">John Spurgin</a>
+          Content edited with{" "}
+          <a href={ORBIT_URL} target="_blank" rel="noopener">
+            Orbit MD
+          </a>
+          · by{" "}
+          <a href={AUTHOR_URL} target="_blank" rel="noopener">
+            John Spurgin
+          </a>
         </span>
       </div>
     </footer>

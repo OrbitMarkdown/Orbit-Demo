@@ -22,6 +22,7 @@ data:
 # saving there rewrites this file without these comments).
 collections:
   posts:
+    url: /journal/{path}
     canAdd: true
     # Editors may start new sub-folders. Safe here because the journal route is
     # src/pages/journal/[...slug].astro — a [slug] route would break the build.
@@ -30,15 +31,16 @@ collections:
     # folders to block them too, e.g. ["archive", "drafts"].
     noAddTo: ["archive"]
   drinks:
+    url: /menu
     canAdd: true
     # Drinks are listed on the menu page (src/pages/menu.astro), with no page of
     # their own, so grouping them in sub-folders can't break any addresses.
     newFolders: true
   specials:
     canAdd: true
-    bodyless: true   # frontmatter only — no text editor
+    bodyless: true # frontmatter only — no text editor
   pages:
-    canAdd: false    # home/about are fixed pages: editable, but no new ones
+    canAdd: false # home/about are fixed pages: editable, but no new ones
     # readOnly: true # would lock them from editing entirely
 
 components:

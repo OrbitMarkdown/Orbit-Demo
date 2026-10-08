@@ -8,5 +8,7 @@ const { kind = "note", title } = Astro.props;
 
 <aside class={`callout callout-${kind}`}>
   {title && <p class="callout-title">{title}</p>}
-  <div class="callout-body"><slot /></div>
+  <div class="callout-body">
+    <slot />
+  </div>
 </aside>

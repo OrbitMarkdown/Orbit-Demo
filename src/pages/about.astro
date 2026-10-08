@@ -6,10 +6,11 @@ const about = await getEntry("pages", "about");
 if (!about) throw new Error("Missing pages/about content entry");
 const { Content } = await render(about);
 
+// The team in their set order, each with their bio (the entry's body) rendered.
 const team = await Promise.all(
   (await getCollection("team"))
     .sort((a, b) => a.data.order - b.data.order)
-    .map(async (m) => ({ data: m.data, Bio: (await render(m)).Content })),
+    .map(async (member) => ({ ...member.data, Bio: (await render(member)).Content })),
 );
 ---
 
@@ -19,22 +20,24 @@ const team = await Promise.all(
     <p class="sub">{about.data.subheading}</p>
   </section>
   <section class="article">
-    <div class="article-body"><Content /></div>
+    <div class="article-body">
+      <Content />
+    </div>
   </section>
 
   <section class="section">
     <h2>The team</h2>
     <div class="team-grid">
-      {
-        team.map((m) => (
-          <div class="team-card">
-            <img class="avatar" src={m.data.avatar.src} alt={m.data.name} width="80" height="80" />
-            <p class="team-name">{m.data.name}</p>
-            <p class="team-role">{m.data.role}</p>
-            <div class="team-bio"><m.Bio /></div>
+      {team.map((member) => (
+        <div class="team-card">
+          <img class="avatar" src={member.avatar.src} alt={member.name} width="80" height="80" />
+          <p class="team-name">{member.name}</p>
+          <p class="team-role">{member.role}</p>
+          <div class="team-bio">
+            <member.Bio />
           </div>
-        ))
-      }
+        </div>
+      ))}
     </div>
   </section>
 </Base>

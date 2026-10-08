@@ -1,0 +1,6 @@
+# Content and data are edited in Orbit, which keeps their formatting as written.
+src/content/
+src/data/
+package-lock.json
+dist/
+.astro/

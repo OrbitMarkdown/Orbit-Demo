@@ -2,14 +2,17 @@
 import Base from "../layouts/Base.astro";
 import { getCollection } from "astro:content";
 
+// Drinks A–Z; this week's available specials in day order.
 const drinks = (await getCollection("drinks")).sort((a, b) =>
   a.data.name.localeCompare(b.data.name),
 );
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 const specials = (await getCollection("specials"))
-  .filter((s) => s.data.available)
+  .filter((special) => special.data.available)
   .sort((a, b) => days.indexOf(a.data.day) - days.indexOf(b.data.day));
-const gbp = (n: number) => "£" + n.toFixed(2);
+
+// A price as pounds and pence: 3.6 → "£3.60".
+const formatPrice = (price: number) => "£" + price.toFixed(2);
 ---
 
 <Base title="Menu — Fernway Coffee" description="The short, ever-changing Fernway menu.">
@@ -17,41 +20,39 @@ const gbp = (n: number) => "£" + n.toFixed(2);
     <h1>The menu</h1>
     <p class="sub">Short on purpose, changed often. Prices are for a regular size unless noted.</p>
   </section>
-  {
-    specials.length > 0 && (
-      <section class="section">
-        <h2>This week's specials</h2>
-        <div class="menu-list">
-          {specials.map((s) => (
-            <div class="menu-item">
-              <div>
-                <span class="menu-cat">{s.data.day}</span>
-                <div class="menu-name">{s.data.name}</div>
-              </div>
-              <div class="menu-price">{gbp(s.data.price)}</div>
+  {specials.length > 0 && (
+    <section class="section">
+      <h2>This week's specials</h2>
+      <div class="menu-list">
+        {specials.map((special) => (
+          <div class="menu-item">
+            <div>
+              <span class="menu-cat">{special.data.day}</span>
+              <div class="menu-name">{special.data.name}</div>
             </div>
-          ))}
-        </div>
-      </section>
-    )
-  }
+            <div class="menu-price">{formatPrice(special.data.price)}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
   <section class="section">
     <div class="menu-list">
-      {
-        drinks.map((d) => (
-          <div class={"menu-item" + (d.data.available ? "" : " is-out")}>
-            <div>
-              <span class="menu-cat">{d.data.category} · {d.data.size}</span>
-              <div class="menu-name">
-                {d.data.name}
-                {!d.data.available && <span class="menu-out-tag"> · sold out</span>}
-              </div>
-              <p class="menu-desc">{d.data.description}</p>
+      {drinks.map((drink) => (
+        <div class={"menu-item" + (drink.data.available ? "" : " is-out")}>
+          <div>
+            <span class="menu-cat">
+              {drink.data.category} · {drink.data.size}
+            </span>
+            <div class="menu-name">
+              {drink.data.name}
+              {!drink.data.available && <span class="menu-out-tag"> · sold out</span>}
             </div>
-            <div class="menu-price">{gbp(d.data.price)}</div>
+            <p class="menu-desc">{drink.data.description}</p>
           </div>
-        ))
-      }
+          <div class="menu-price">{formatPrice(drink.data.price)}</div>
+        </div>
+      ))}
     </div>
   </section>
 </Base>

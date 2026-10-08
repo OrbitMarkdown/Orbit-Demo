@@ -1,0 +1,21 @@
+---
+// A journal post as a card: its hero image, category, title and excerpt,
+// linking to the post. Used on the home page and the journal page.
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  post: CollectionEntry<"posts">;
+}
+
+const { post } = Astro.props;
+const { heroImage, category, title, excerpt } = post.data;
+---
+
+<a class="card" href={`/journal/${post.id}`}>
+  {heroImage && <img src={heroImage.src} alt="" />}
+  <div class="card-body">
+    <p class="card-kicker">{category}</p>
+    <h3>{title}</h3>
+    <p>{excerpt}</p>
+  </div>
+</a>
