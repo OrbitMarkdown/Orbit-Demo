@@ -1,7 +1,10 @@
 ---
 import Base from "../../layouts/Base.astro";
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import PostCard from "../../components/PostCard.astro";
+
+const journal = await getEntry("pages", "journal");
+if (!journal) throw new Error("Missing pages/journal content entry");
 
 // Every post, newest first.
 const posts = (await getCollection("posts")).sort(
@@ -9,12 +12,10 @@ const posts = (await getCollection("posts")).sort(
 );
 ---
 
-<Base title="Journal — Fernway Coffee" description="Notes on beans, brewing and the café.">
+<Base title="Journal" description={journal.data.subheading} seo={journal.data.seo}>
   <section class="hero">
-    <h1>The journal</h1>
-    <p class="sub">
-      Notes on what we're roasting, how we're brewing it, and what's new at the café.
-    </p>
+    <h1>{journal.data.heading}</h1>
+    <p class="sub">{journal.data.subheading}</p>
   </section>
   <section class="section">
     <div class="grid">

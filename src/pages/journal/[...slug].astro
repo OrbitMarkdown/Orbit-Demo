@@ -14,7 +14,32 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const { title, excerpt, heroImage, category, date, author, tags } = post.data;
+const { title, excerpt, heroImage, category, date, author, tags, seo } = post.data;
+const url = new URL(Astro.url.pathname, Astro.site).href;
+
+// Structured data: the post as an article, and where it sits on the site.
+const schema = [
+  {
+    "@type": "BlogPosting",
+    headline: seo?.title ?? title,
+    description: seo?.description ?? excerpt,
+    datePublished: date.toISOString().slice(0, 10),
+    author: { "@type": "Person", name: author },
+    url,
+  },
+  {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Journal",
+        item: new URL("/journal", Astro.site).href,
+      },
+      { "@type": "ListItem", position: 2, name: title, item: url },
+    ],
+  },
+];
 const published = date.toLocaleDateString("en-GB", {
   day: "numeric",
   month: "long",
@@ -22,7 +47,7 @@ const published = date.toLocaleDateString("en-GB", {
 });
 ---
 
-<Base title={`${title} — Fernway Coffee`} description={excerpt}>
+<Base title={title} description={excerpt} seo={seo} type="article" schema={schema}>
   <article class="article">
     {heroImage && <img class="article-hero" src={heroImage.src} alt="" />}
     <h1>{title}</h1>

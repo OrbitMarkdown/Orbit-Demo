@@ -1,0 +1,4 @@
+Contact: mailto:support@orbitmarkdown.com
+Expires: 2027-10-09T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://demo.orbitmarkdown.com/.well-known/security.txt

@@ -1,16 +1,32 @@
 import { defineCollection } from "astro:content";
 import { z } from "astro/zod";
 import { glob } from "astro/loaders";
+import type { SchemaContext } from "astro:content";
 
-// Editable single pages (home + about heroes).
+// Search and sharing settings — the collapsible "SEO" group in Orbit's form.
+// Every field is optional: a page falls back to its own title and intro, and
+// to a share picture made from its title (src/pages/og/[...route].ts).
+const seo = ({ image }: SchemaContext) =>
+  z
+    .object({
+      title: z.string().optional(), // the title in search results and shares
+      description: z.string().optional(), // the snippet under it (about 150 characters)
+      image: image().optional(), // a share picture — JPG or PNG, about 1200×630
+      hidden: z.boolean().default(false), // keep this page out of search results
+    })
+    .optional();
+
+// Editable single pages: the home, about, menu and journal page words.
 const pages = defineCollection({
   loader: glob({ pattern: "*.md", base: "./src/content/pages" }),
-  schema: z.object({
-    heading: z.string(),
-    subheading: z.string(),
-    ctaLabel: z.string().optional(),
-    ctaHref: z.string().optional(),
-  }),
+  schema: (ctx) =>
+    z.object({
+      heading: z.string(),
+      subheading: z.string(),
+      ctaLabel: z.string().optional(),
+      ctaHref: z.string().optional(),
+      seo: seo(ctx),
+    }),
 });
 
 // Journal posts — a deliberately rich schema so the editor form shows every
@@ -23,7 +39,7 @@ const pages = defineCollection({
 // "{md,mdx}" + @astrojs/mdx in package.json = editors choose Markdown or MDX.
 const posts = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/posts" }),
-  schema: ({ image }) =>
+  schema: (ctx) =>
     z.object({
       title: z.string(),
       excerpt: z.string(),
@@ -31,14 +47,9 @@ const posts = defineCollection({
       author: z.enum(["Ada Brooks", "Sam Ortega", "The Fernway team"]),
       category: z.enum(["Brewing", "Journal", "Beans"]),
       tags: z.array(z.string()).default([]),
-      heroImage: image().optional(),
+      heroImage: ctx.image().optional(),
       featured: z.boolean().default(false),
-      seo: z
-        .object({
-          title: z.string().optional(),
-          description: z.string().optional(),
-        })
-        .optional(),
+      seo: seo(ctx),
     }),
 });
 

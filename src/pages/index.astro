@@ -16,7 +16,12 @@ const featured = [...newestFirst]
   .slice(0, 3);
 ---
 
-<Base title="Fernway Coffee" description={home.data.subheading}>
+<Base
+  title="Fernway Coffee"
+  description={home.data.subheading}
+  seo={home.data.seo}
+  schema={{ "@type": "WebSite", name: "Fernway Coffee", url: Astro.site?.href }}
+>
   <section class="hero">
     <h1>{home.data.heading}</h1>
     <p class="sub">{home.data.subheading}</p>

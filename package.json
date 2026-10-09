@@ -7,13 +7,15 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check && prettier --check .",
+    "check": "astro check && prettier --check . && astro build && node scripts/check-seo.mjs",
     "format": "prettier --write ."
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.3.1",
     "@astrojs/mdx": "^8.0.1",
-    "astro": "^7.3.2"
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.3.2",
+    "astro-og-canvas": "^0.13.2"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",

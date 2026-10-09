@@ -1,6 +1,9 @@
 ---
 import Base from "../layouts/Base.astro";
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
+
+const menu = await getEntry("pages", "menu");
+if (!menu) throw new Error("Missing pages/menu content entry");
 
 // Drinks A–Z; this week's available specials in day order.
 const drinks = (await getCollection("drinks")).sort((a, b) =>
@@ -15,10 +18,10 @@ const specials = (await getCollection("specials"))
 const formatPrice = (price: number) => "£" + price.toFixed(2);
 ---
 
-<Base title="Menu — Fernway Coffee" description="The short, ever-changing Fernway menu.">
+<Base title="Menu" description={menu.data.subheading} seo={menu.data.seo}>
   <section class="hero">
-    <h1>The menu</h1>
-    <p class="sub">Short on purpose, changed often. Prices are for a regular size unless noted.</p>
+    <h1>{menu.data.heading}</h1>
+    <p class="sub">{menu.data.subheading}</p>
   </section>
   {specials.length > 0 && (
     <section class="section">

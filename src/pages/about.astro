@@ -14,7 +14,7 @@ const team = await Promise.all(
 );
 ---
 
-<Base title="About — Fernway Coffee" description={about.data.subheading}>
+<Base title="About" description={about.data.subheading} seo={about.data.seo}>
   <section class="hero">
     <h1>{about.data.heading}</h1>
     <p class="sub">{about.data.subheading}</p>
