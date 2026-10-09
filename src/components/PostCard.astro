@@ -5,9 +5,12 @@ import type { CollectionEntry } from "astro:content";
 
 interface Props {
   post: CollectionEntry<"posts">;
+  // The title's heading level: h3 under a section heading (home), h2 straight
+  // under the page's h1 (journal) — headings mustn't skip a level.
+  heading?: "h2" | "h3";
 }
 
-const { post } = Astro.props;
+const { post, heading: Heading = "h3" } = Astro.props;
 const { heroImage, category, title, excerpt } = post.data;
 ---
 
@@ -15,7 +18,7 @@ const { heroImage, category, title, excerpt } = post.data;
   {heroImage && <img src={heroImage.src} alt="" />}
   <div class="card-body">
     <p class="card-kicker">{category}</p>
-    <h3>{title}</h3>
+    <Heading class="card-title">{title}</Heading>
     <p>{excerpt}</p>
   </div>
 </a>
